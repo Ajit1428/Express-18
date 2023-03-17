@@ -1,0 +1,22 @@
+{
+  "name": "express-18",
+  "version": "1.0.0",
+  "description": "express_new",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ajit1428/Programming.git"
+  },
+  "author": "Ajit Thapa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ajit1428/Programming/issues"
+  },
+  "homepage": "https://github.com/Ajit1428/Programming#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
