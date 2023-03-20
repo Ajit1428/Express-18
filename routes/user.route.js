@@ -1,23 +1,16 @@
 const router = require('express').Router();
+const {isAdmin} = require('../src/middleware/rbac.middleware')
+const userCon = require("../src/controller/user.controller")
 
-router.post('/',(req, res, next)=> {
 
-})
+router.route('/')
+    .post( isAdmin , userCon.create)
+    .get( userCon.index)
 
-router.get('/',(req, res, next)=> {
-
-})
-
-router.get('/:id', (req, res, next)=> {
-    let para =  req.params.id
-    let qu =  req.query
-
-    res.json({
-        params : para,
-        query : qu
-    })
-})
-
+router.route('/:id')
+    .get( isAdmin , userCon.show)
+    .put( isAdmin, userCon.update)
+    .delete( isAdmin, userCon.delete)
 
 
 
