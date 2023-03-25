@@ -1,5 +1,6 @@
 // Node server (Sapp.js)
 const express = require('express');
+const { MulterError } = require('multer');
 const app = express();
 const routes = require('./routes')
 
@@ -16,9 +17,18 @@ app.use((req, res, next)=> {
 
 // Error handling middleware
 
+
+
 app.use((error, req, res, next)=>{
     let status =  error.status || 500
     let msg = error.msg || JSON.stringify(error)
+
+
+    if(error instanceof MulterError){
+        status = 400;
+        msg = error.message;
+    }
+
     res.status(status).json({ 
         result : error,
         status : false,

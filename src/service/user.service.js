@@ -11,7 +11,8 @@ class UserService {
                 role: Joi.string().required(),
                 status: Joi.string().required(),
                 address: Joi.string().empty(),
-                contact: Joi.string().required()
+                contact: Joi.string().required(),
+                image: Joi.string().empty()
             })
 
             let response = await userValidationSchema.validateAsync(data)

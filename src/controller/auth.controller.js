@@ -1,7 +1,6 @@
 const userSer = require('../service/user.service')
 const bcrypt =  require('bcrypt')
 const helpers = require('../../config/helper')
-const nodemailer = require('nodemailer')
 const emailSer = require('../service/email.service')
 
 class AuthController {
@@ -21,7 +20,7 @@ class AuthController {
 
        let data = req.body;
        if(req.file) {
-        console.log(req.file)
+            data.image = req.file.filename;
        }
        data.status = "inactive";
        let validatedData = await userSer.validateUser(data) 

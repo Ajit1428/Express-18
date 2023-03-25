@@ -1,21 +1,9 @@
 const router = require('express').Router();
 const authCon = require('../src/controller/auth.controller')
-const multer = require('multer')
+const uploader = require('../src/middleware/uploader.middleware')
 
 
-const myStorage = multer.diskStorage({
-    destination: (req, file, next) => {
-        let path = 'public/uploads'
-        next(false, path)
-    },
-    filename: (req, file, next) =>{
-        next(false, file.originalname)
-    }
-}) 
 
-const uploader = multer({
-    storage: myStorage
-})
 
 router.post('/login', authCon.login )
 

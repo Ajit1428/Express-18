@@ -14,7 +14,8 @@ const constant = {
                      "<p><strong> Regards</strong></p>"+
                      "<p>No reply </p>"+
                      "<p>noreply@test.com</p>"
-    }
+    },
+    ALLOWED_IMAGES: ["jpg", "png", "gif", "jpeg", "webp", "bmp", "svg"]
 }
 
 
