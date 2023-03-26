@@ -1,6 +1,7 @@
 // Node server (Sapp.js)
 const express = require('express');
 const { MulterError } = require('multer');
+require('./config/db.config')
 const app = express();
 const routes = require('./routes')
 
@@ -8,16 +9,11 @@ app.use(express.json())
 
 app.use('/api/v1' , routes);
 
-
-
 app.use((req, res, next)=> {
     next({status: 404, msg: "Page not found"}) //Always calls the error handling middleware
 })
 
-
 // Error handling middleware
-
-
 
 app.use((error, req, res, next)=>{
     let status =  error.status || 500
