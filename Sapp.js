@@ -1,11 +1,19 @@
 // Node server (Sapp.js)
 const express = require('express');
 const { MulterError } = require('multer');
+const cors = require('cors')
+
 require('./config/db.config')
+
 const app = express();
+
 const routes = require('./routes')
 
+app.use(cors())
+
 app.use(express.json())
+
+app.use("/images", express.static(process.cwd()+ "/public/images"))
 
 app.use('/api/v1' , routes);
 

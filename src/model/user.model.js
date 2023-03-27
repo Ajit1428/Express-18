@@ -1,60 +1,65 @@
-const { string } = require('joi')
 const mongoose = require('mongoose')
 
 const StateSchema = new mongoose.Schema({
     stateName: {
-        type: string,
+        type: String,
         enum: ['koshi', 'madhesh', 'bagmati', 'gandaki', 'lumbini', 'karnali', 'far-western']
     }
 })
 
 const DistrictSchema = new mongoose.Schema({
-    districtName : string,
+    districtName : String,
     StateSchema
 })
 
 const DistrictModel = mongoose.model("District", DistrictSchema)
 
-const AddressSchema = new mongoose.Schema({ 
-    StateSchema,
+const AddressSchema = { 
+    stateName: {
+        type: String,
+        enum: ['koshi', 'madhesh', 'bagmati', 'gandaki', 'lumbini', 'karnali', 'far-western']
+    },
     districtName: {
         type: mongoose.Types.ObjectId,
         ref: "District"
-    }
-})
+    },
+    municipality: String,
+    wardNo: Number
+
+}
 
 const UserSchema = new mongoose.Schema({
     name: {
-        type: string,
+        type: String,
         required: true,
         min: 3,
         max: 50
     },
     email: {
-        type: string,
+        type: String,
         required: true,
         unique: true
     },
     password: {
-        type : string,
+        type : String,
         required: true
     },
     role: {
-        type : string,
+        type : String,
         enum : ['admin', 'customer', 'seller'],
         default: "customer"
     },
     status: {
-        type: string,
+        type: String,
         enum : ['active', 'inactive'],
         default: 'inactive'
     },
     address: {
-        temp : AddressSchema,
-        perm: AddressSchema
+        temp : {...AddressSchema},
+        perm: {...AddressSchema}
     },
-    contact: string,
-    image: string,
+    contact: String,
+    image: String,
 },
 {
     autoIndex : true,

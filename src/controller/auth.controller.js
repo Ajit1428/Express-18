@@ -47,10 +47,9 @@ class AuthController {
     {
 
        let data = req.body;
-       let userExists = await userSer.getUserByEmail(data.email)
-
+       let userExists =  await userSer.getUserByEmail(data.email);
        if(userExists){
-        next({status: 400, msg: "User with this email address already exists"})
+        next({status: 400, msg: "Email already exists"})
        }
 
        if(req.file) {
@@ -66,6 +65,9 @@ class AuthController {
        emailSer.setMessage("activation", {activationToken: data.activationToken})
        emailSer.sendEmail(validatedData.email)
 
+       if(validatedData.address && typeof validatedData.address === "string"){
+        validatedData.address = JSON.parse(validatedData.address)
+       }
 
        let responseDb = await userSer.registerUser(validatedData);
 
@@ -78,7 +80,6 @@ class AuthController {
        
     }
     catch (err) {
-        console.log("Registration error: ", err)
         next({status : 400 , msg: err})
     }
 

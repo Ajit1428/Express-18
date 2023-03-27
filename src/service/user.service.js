@@ -1,8 +1,9 @@
 const Joi = require('joi')
 const { ObjectId } = require('mongodb')
-const DbService = require('./mongodb.service')
+const UserModel =  require('../model/user.model') 
 
-class UserService extends DbService{
+
+class UserService{
     validateUser = async (data) => {
         try 
         {
@@ -43,7 +44,7 @@ class UserService extends DbService{
         try 
         {
             let userValidationSchema = Joi.object({
-                email: Joi.string().email({ minDomainSegments: 2 }),
+                email: Joi.string().email({ minDomainSegments: 2 }).required(),
                 password: Joi.string().required()
             
             })
@@ -75,7 +76,8 @@ class UserService extends DbService{
         
         try 
         {
-        return await this.createOne("users", data)
+        let user = new UserModel(data)    
+        return await user.save()
      
         }
         catch(err)
@@ -87,8 +89,8 @@ class UserService extends DbService{
 
     getUserByEmail = async (email) => {
         try {
-        let userDetails =  await this.getSingleOne("users", { 
-        email: email 
+        let userDetails =  await UserModel.findOne({
+            email: email
         })
         return userDetails
         } 
@@ -102,7 +104,7 @@ class UserService extends DbService{
     getUserById = async (id) => {
         try 
         {
-            let userDetails = await this.getSingleOne('users', { _id: new ObjectId(id)})
+            let userDetails = await UserModel.findById(id)
             return userDetails
         } 
         catch (error) 
