@@ -17,6 +17,8 @@ class AuthController {
         }
 
         if(bcrypt.compareSync(credentials.password, user.password)){
+
+            if(user.status === "active"){
             let token = jwt.sign({
                 _id: user._id
             }, JWT_SECRET)
@@ -30,6 +32,10 @@ class AuthController {
                 message: "Welcome to the admin pannel",
                 meta: null
             })
+        }
+        else{
+            next({status: 400, msg: "User needs to be active"})
+        }
         }
         else
         {

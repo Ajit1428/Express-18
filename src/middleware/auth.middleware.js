@@ -10,13 +10,13 @@ const authMid = async (req, res, next) => {
         }
 
         if(!token){
-            next({status : 401, msg: "User token invalid"});
+            next({status : 401, msg: "User not logged in"});
         }
 
         token = (token.split(" ")).pop();
 
         if(!token){
-            next({status : 401, msg: "User token invalid"});
+            next({status : 401, msg: "User not logged in"});
         }
 
         
