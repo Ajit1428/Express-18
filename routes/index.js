@@ -6,6 +6,7 @@ const authRoutes = require('./auth.route')
 const userRoutes = require('./user.route')
 const bannerRoutes = require('./banner.route')
 const brandRoutes = require('./brand.route')
+const categoryRoutes = require('./category.route')
 
 
 
@@ -14,6 +15,7 @@ router.use('/auth',authRoutes)
 router.use('/user',authMid, userRoutes)
 router.use('/banner',bannerRoutes)
 router.use('/brand',brandRoutes)
+router.use('/category',categoryRoutes)
 
 
 module.exports =  router;

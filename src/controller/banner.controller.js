@@ -24,12 +24,14 @@ class BannerController {
 
     listAllBanner = async (req, res, next) => {
         try {
-            let response = await bannerSer.getAllBanner();
+            let query = req.query
+            let pagination = await bannerSer.getTotalPagination(query.perPage ?? 10, query.page ?? 1);
+            let response = await bannerSer.getAllBanner(pagination);
             res.json({
                 result: response,
                 status: true,
                 msg: "Fetched data",
-                meta: null
+                meta: pagination
             })
         } catch (error) {
             next({status: 400, msg: "Error while listing banner"})

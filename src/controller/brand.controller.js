@@ -56,7 +56,6 @@ class BrandController {
              }
 
 
-             data.image = req.file.filename
  
            
              let response = await brandSer.updatedBrand(data, req.params.id)

@@ -1,12 +1,12 @@
 const Joi = require("joi")
-const BannerModel = require("../model/banner.model")
+const CategoryModel = require("../model/category.model")
 
-class BannerService { 
+class CategoryService { 
     validateData = async (data) => {
         try{
         const validate = Joi.object({
             title: Joi.string().min(3).required(),
-            link: Joi.string().empty(),
+            parent: Joi.string().allow(null),
             status: Joi.string().required(),
             image: Joi.string().required()
         })
@@ -23,7 +23,7 @@ class BannerService {
     } 
     catch (err) 
     {
-        const errMsg = "Error while creating content"
+        let errMsg = "Error while creating content"
         if (err.details?.[0].message){
 
             errMsg =  err.details?.[0].message
@@ -31,22 +31,22 @@ class BannerService {
         else{
             throw new Error(errMsg)
         }
-        }
     }
+}
 
-    storeBanner = async (data) => {
+    storeCategory = async (data) => {
         try {
-            let banner = new BannerModel(data);
-            return await banner.save()
+            let category = new CategoryModel(data);
+            return await category.save()
 
         } catch (err) {
             throw err
         }
     }
 
-    updatedBanner = async (data, id) => {
+    updatedCategory = async (data, id) => {
         try {
-            let response = await BannerModel.findByIdAndUpdate(id, {
+            let response = await CategoryModel.findByIdAndUpdate(id, {
                 $set : data
             })
             return response
@@ -56,9 +56,9 @@ class BannerService {
         }
     }
 
-    deleteBannerById = async (id) => {
+    deleteCategoryById = async (id) => {
         try {
-            let delPrev = await BannerModel.findByIdAndRemove(id)
+            let delPrev = await CategoryModel.findByIdAndRemove(id)
             return delPrev
         
         } catch (error) {
@@ -67,12 +67,11 @@ class BannerService {
         }
     }
 
-    getAllBanner = async (pagination) => {
+    getAllCategory = async () => {
         try {
-            let skip = (pagination.currentPage - 1) * pagination.perPage
-            const response = await BannerModel.find()
-                .skip(skip)
-                .limit(pagination.perPage)
+            const response = await CategoryModel.find()
+            .populate("parent")
+            .populate("createdBy")
             return response
         } catch (err) {
             throw err
@@ -81,24 +80,28 @@ class BannerService {
 
     getById = async (id) => {
         try {
-            let banner= await BannerModel.findById(id)
-            return banner
+            let category= await CategoryModel.findById(id)
+            .populate("parent")
+            .populate("createdBy")
+            return category
         } catch (error) {
             throw error
         }
     }
-
-    getTotalPagination = async (perPage, currentPage) => {
-        let total = await BannerModel.count();
-        return {
-            total : total,
-            perPage: perPage,
-            currentPage: currentPage
+    getCategoryBySlug = async (slug) => {
+        try {
+            let category= await CategoryModel.findOne({
+                slug: slug
+            })
+            .populate("parent")
+            .populate("createdBy")
+            return category
+        } catch (error) {
+            throw error
         }
-
     }
 }
 
-let bannerSer = new BannerService();
-module.exports = bannerSer
+let categorySer = new CategoryService();
+module.exports = categorySer
 
