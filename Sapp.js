@@ -3,6 +3,7 @@ const express = require('express');
 const { MulterError } = require('multer');
 const cors = require('cors')
 
+
 require('./config/db.config')
 
 const app = express();
@@ -10,6 +11,10 @@ const app = express();
 const routes = require('./routes')
 
 app.use(cors())
+
+const emailEvent = require("./src/events/email.events")
+app.use(emailEvent)
+
 
 app.use(express.json())
 

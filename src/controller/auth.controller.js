@@ -67,9 +67,7 @@ class AuthController {
        data.activationToken = helpers.randomString(100);
        validatedData.password = bcrypt.hashSync(validatedData.password, 10);
 
-       emailSer.setSubject("Activate your account");
-       emailSer.setMessage("activation", {activationToken: data.activationToken})
-       emailSer.sendEmail(validatedData.email)
+       req.myEvent.emit("registerEmailSend", data )
 
        if(validatedData.address && typeof validatedData.address === "string"){
         validatedData.address = JSON.parse(validatedData.address)
