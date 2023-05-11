@@ -170,6 +170,20 @@ class ProductController {
         }
     }
 
+    getActiveProduct = async (req, res, next) => {
+        try {
+            let allActiveProducts = await productSer.getActiveProducts()
+            res.json({
+                result: allActiveProducts,
+                status: true,
+                msg: "All active products"
+
+            })
+        } catch (error) {
+            next({status: 400, msg: "Error while fetching the active products"})
+        }
+    }
+
     }
 
     

@@ -18,6 +18,15 @@ const isCustomer = (req, res, next) => {
     }
 }
 
+const isAdminSeller = (req, res, next) => {
+    if(req.authUser.role === "seller" || req.authUser.role === "admin" ) {
+        next();
+    }
+    else{
+        next({status : 403 , msg: "Access Denied"})
+    }
+}
 
 
-module.exports = {isAdmin , isCustomer}
+
+module.exports = {isAdmin , isCustomer, isAdminSeller}

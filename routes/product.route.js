@@ -4,6 +4,7 @@ const authMid = require('../src/middleware/auth.middleware')
 const { isAdmin } = require('../src/middleware/rbac.middleware');
 const uploader = require('../src/middleware/uploader.middleware');
 
+router.get('/admin', productCon.getActiveProduct)
 router.get('/:slug', productCon.getDetailBySlug)
 
 router.route("/")

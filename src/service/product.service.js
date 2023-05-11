@@ -113,6 +113,23 @@ class ProductService {
             throw error
         }
     }
+
+    getActiveProducts = async () => {
+        try {
+            let response = await ProductModel.find({
+                status: "active"
+            })
+            .populate("categories")
+            .populate("brand")
+            .populate("sellerId")
+            .populate("createdBy")
+            return response
+        } catch (error) {
+            throw error
+        }
+    }
+
+   
 }
 
 let productSer = new ProductService();

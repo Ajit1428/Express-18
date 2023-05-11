@@ -8,7 +8,7 @@ const bannerRoutes = require('./banner.route')
 const brandRoutes = require('./brand.route')
 const categoryRoutes = require('./category.route')
 const productRoutes = require('./product.route')
-
+const orderRoutes = require('./order.route ')
 
 
 router.use(homeRoutes)
@@ -18,6 +18,7 @@ router.use('/banner',bannerRoutes)
 router.use('/brand',brandRoutes)
 router.use('/category',categoryRoutes)
 router.use('/product',productRoutes)
+router.use('/order',orderRoutes)
 
 
 module.exports =  router;
