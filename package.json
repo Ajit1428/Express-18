@@ -4,8 +4,7 @@
   "description": "express_new",
   "main": "index.js",
   "scripts": {
-    "start": "node Sapp.js",
-    "build" : "npm i"
+    "start": "node Sapp.js"
   },
   "repository": {
     "type": "git",
@@ -28,5 +27,9 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.1",
     "slugify": "^1.6.6"
+  },
+  "engines": {
+    "node" : "20.2.0",
+    "npm": "8.19.2"
   }
 }
