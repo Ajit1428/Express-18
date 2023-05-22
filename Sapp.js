@@ -46,7 +46,7 @@ app.use((error, req, res, next)=>{
     })
 })
 
-app.listen(2814, "localhost", (err) => {
+app.listen(process.env.PORT || 2814, "localhost", (err) => {
     if(!err)
     {
     console.log("Server is listening to the port 2814")
